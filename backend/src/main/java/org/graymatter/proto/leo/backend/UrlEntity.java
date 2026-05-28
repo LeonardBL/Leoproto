@@ -17,7 +17,8 @@ public class UrlEntity {
     @URL(message = "Format d'URL invalide")
     private String url;
 
-    public UrlEntity() {}
+    public UrlEntity() {
+    }
 
     public UrlEntity(String url) {
         this.url = url;
