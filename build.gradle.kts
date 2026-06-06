@@ -16,25 +16,25 @@ tasks.register("runAll") {
         println("----------------------------------------------------")
         println("Starting backend (Spring Boot) in background...")
         println("Logs will be in backend/nohup.out")
-        exec {
+        project.exec {
             workingDir = file("backend")
-            commandLine("nohup", "./gradlew", "bootRun", ">", "nohup.out", "2>&1", "&")
-            ignoreExitValue = true
+            commandLine("bash", "-c", "nohup ./gradlew bootRun > nohup.out 2>&1 &")
+            isIgnoreExitValue = true // Changed to setIgnoreExitValue(true)
         }
         println("Backend started. Check http://localhost:8080")
 
         println("\nInstalling frontend dependencies (npm install) if needed...")
-        exec {
+        project.exec {
             workingDir = file("frontend")
             commandLine("npm", "install")
         }
 
         println("\nStarting frontend (Next.js) in background...")
         println("Logs will be in frontend/nohup.out")
-        exec {
+        project.exec {
             workingDir = file("frontend")
-            commandLine("nohup", "npm", "run", "dev", ">", "nohup.out", "2>&1", "&")
-            ignoreExitValue = true
+            commandLine("bash", "-c", "nohup npm run dev > nohup.out 2>&1 &")
+            isIgnoreExitValue = true // Changed to setIgnoreExitValue(true)
         }
         println("Frontend started. Check http://localhost:3000")
 
